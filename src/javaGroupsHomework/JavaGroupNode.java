@@ -148,6 +148,9 @@ public class JavaGroupNode extends ReceiverAdapter {
             if (connect()) {
                 m_continue = true;
             }
+            else {
+                throw new Exception("Connection request failed");
+            }
 
             Thread.sleep(m_sleep_duration_in_milliseconds + m_sleep_duration_in_milliseconds / 2);
         }
@@ -173,7 +176,7 @@ public class JavaGroupNode extends ReceiverAdapter {
     private void sendKill(Address address) throws Exception {
         if (m_kill_message != null && m_communication_channel != null) {
             if (m_id == m_leader_id && m_leader_address.toString() == m_self_address.toString()) {
-                System.out.println("Kill message send by leader: " + m_id + " to address: " + address.toString());
+                System.out.println("Kill message is sent by the leader: " + m_id + " to address: " + address.toString());
                 m_communication_channel.send(address, m_kill_message);
             }
         }
